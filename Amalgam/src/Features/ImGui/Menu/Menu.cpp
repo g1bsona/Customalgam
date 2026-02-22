@@ -963,6 +963,8 @@ void CMenu::MenuVisuals(int iTab)
 					FDropdown(Vars::Menu::Indicators);
 					if (FSlider(Vars::Menu::Scale))
 						H::Fonts.Reload(Vars::Menu::Scale[DEFAULT_BIND]);
+					FToggle(Vars::Menu::StringOutlined, Hovered); FTooltip("Amalgam's custom outline function. Made to replace the Outline fontflags used in earlier builds of Amalgam.", Hovered);
+					if (Vars::Menu::StringOutlined.Value)
 					FToggle(Vars::Menu::CheapText);
 				} EndSection();
 				if (Vars::Debug::Options.Value)
@@ -981,6 +983,27 @@ void CMenu::MenuVisuals(int iTab)
 					EndSection();
 				}
 			}
+			/* Column 3 */
+			TableNextColumn();
+
+			static std::vector fontFlagNames{ "Italic", "Underline", "Strikeout", "Symbol", "Antialias", "Gaussian", "Rotary", "Dropshadow", "Additive", "Outline", "Custom" };
+			static std::vector fontFlagValues{ 0x001, 0x002, 0x004, 0x008, 0x010, 0x020, 0x040, 0x080, 0x100, 0x200, 0x400 };
+
+			if (Section("Fonts"))
+			{
+				FSDropdown(Vars::Fonts::FONT_ESP::szName, {}, FDropdownEnum::Left);
+				FSlider(Vars::Fonts::FONT_ESP::nTall);
+				FSlider(Vars::Fonts::FONT_ESP::nWeight);
+				FDropdown(Vars::Fonts::FONT_ESP::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
+
+				FSDropdown(Vars::Fonts::FONT_INDICATORS::szName, {}, FDropdownEnum::Left);
+				FSlider(Vars::Fonts::FONT_INDICATORS::nTall);
+				FSlider(Vars::Fonts::FONT_INDICATORS::nWeight);
+				FDropdown(Vars::Fonts::FONT_INDICATORS::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
+
+				if (FButton("Apply fonts"))
+					H::Fonts.Reload();
+			} EndSection();
 			EndTable();
 		}
 		break;
@@ -1918,7 +1941,7 @@ void CMenu::MenuLogs(int iTab)
 						fStream.close();
 
 						SDK::SetClipboard(sString);
-						SDK::Output("Amalgam", "Copied playerlist to clipboard", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+						SDK::Output("Customalgam", "Copied playerlist to clipboard", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 					}
 				}
 
@@ -2019,7 +2042,7 @@ void CMenu::MenuLogs(int iTab)
 						}
 						catch (...)
 						{
-							SDK::Output("Amalgam", "Failed to import playerlist", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+							SDK::Output("Customalgam", "Failed to import playerlist", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 						}
 					}
 
@@ -2080,7 +2103,7 @@ void CMenu::MenuLogs(int iTab)
 							}
 
 							F::PlayerUtils.m_bSave = true;
-							SDK::Output("Amalgam", "Imported playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+							SDK::Output("Customalgam", "Imported playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 
 							CloseCurrentPopup();
 						}
@@ -2111,11 +2134,11 @@ void CMenu::MenuLogs(int iTab)
 							F::Configs.m_sCorePath + std::format("Backup{}.json", iBackupCount + 1),
 							std::filesystem::copy_options::overwrite_existing
 						);
-						SDK::Output("Amalgam", "Saved backup playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+						SDK::Output("Customalgam", "Saved backup playerlist", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 					}
 					catch (...)
 					{
-						SDK::Output("Amalgam", "Failed to backup playerlist", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+						SDK::Output("Customalgam", "Failed to backup playerlist", ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 					}
 				}
 			}

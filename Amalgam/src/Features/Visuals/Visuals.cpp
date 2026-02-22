@@ -251,7 +251,10 @@ void CVisuals::DrawPickupTimers()
 
 		Vec3 vScreen;
 		if (SDK::W2S(tPickup.m_vLocation, vScreen))
-			H::Draw.StringOutlined(H::Fonts.GetFont(FONT_ESP), vScreen.x, vScreen.y, pGroup->m_tColor, Vars::Menu::Theme::Background.Value, ALIGN_CENTER, std::format("{:.1f}s", flTime).c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(H::Fonts.GetFont(FONT_ESP), vScreen.x, vScreen.y, pGroup->m_tColor, ALIGN_CENTER, std::format("{:.1f}s", flTime).c_str());
+			else
+				H::Draw.StringOutlined(H::Fonts.GetFont(FONT_ESP), vScreen.x, vScreen.y, pGroup->m_tColor, Vars::Menu::Theme::Background.Value, ALIGN_CENTER, std::format("{:.1f}s", flTime).c_str());
 
 		it++;
 	}
@@ -306,9 +309,69 @@ void CVisuals::DrawDebugInfo(CTFPlayer* pLocal)
 
 		if (pCmd)
 		{
-			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("View: ({:.3f}, {:.3f}, {:.3f})", pCmd->viewangles.x, pCmd->viewangles.y, pCmd->viewangles.z).c_str());
-			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Move: ({}, {}, {})", pCmd->forwardmove, pCmd->sidemove, pCmd->upmove).c_str());
-			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Buttons: {:#034b} ({})", pCmd->buttons,
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("View: ({:.3f}, {:.3f}, {:.3f})", pCmd->viewangles.x, pCmd->viewangles.y, pCmd->viewangles.z).c_str());
+			else
+				H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("View: ({:.3f}, {:.3f}, {:.3f})", pCmd->viewangles.x, pCmd->viewangles.y, pCmd->viewangles.z).c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Aim: ({:.3f}, {:.3f}, {:.3f})", pCmd->viewangles.x, pCmd->viewangles.y, pCmd->viewangles.z).c_str());
+			else
+				H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Move: ({}, {}, {})", pCmd->forwardmove, pCmd->sidemove, pCmd->upmove).c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Buttons: {:#034b} ({})", pCmd->buttons,
+						[&]()
+						{
+							std::string sReturn = "";
+							if (pCmd->buttons)
+							{
+								static std::vector<std::pair<int, const char*>> vFlags = {
+									PAIR(IN_ATTACK),
+									PAIR(IN_ATTACK2),
+									PAIR(IN_ATTACK3),
+									PAIR(IN_FORWARD),
+									PAIR(IN_BACK),
+									PAIR(IN_MOVELEFT),
+									PAIR(IN_MOVERIGHT),
+									PAIR(IN_JUMP),
+									PAIR(IN_DUCK),
+									PAIR(IN_RELOAD),
+									PAIR(IN_LEFT),
+									PAIR(IN_RIGHT),
+									PAIR(IN_SCORE),
+									/*
+									PAIR(IN_USE),
+									PAIR(IN_CANCEL),
+									PAIR(IN_RUN),
+									PAIR(IN_ALT1),
+									PAIR(IN_ALT2),
+									PAIR(IN_SPEED),
+									PAIR(IN_WALK),
+									PAIR(IN_ZOOM),
+									PAIR(IN_WEAPON1),
+									PAIR(IN_WEAPON2),
+									PAIR(IN_BULLRUSH),
+									PAIR(IN_GRENADE1),
+									PAIR(IN_GRENADE2),
+									*/
+								};
+
+								for (int i = 0; i < vFlags.size(); i++)
+								{
+									auto& paFlag = vFlags[i];
+									if (pCmd->buttons & paFlag.first)
+									{
+										if (!sReturn.empty())
+											sReturn += " | ";
+										sReturn += paFlag.second;
+									}
+								}
+							}
+							return sReturn.empty() ? "NONE" : sReturn;
+						}()
+							).c_str()
+							);
+			else
+				H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Buttons: {:#034b} ({})", pCmd->buttons,
 				[&]()
 				{
 					std::string sReturn = "";
@@ -359,13 +422,25 @@ void CVisuals::DrawDebugInfo(CTFPlayer* pLocal)
 					return sReturn.empty() ? "NONE" : sReturn;
 				}()
 				).c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Tickcount: {}, Command: {}", pCmd->tick_count, pCmd->command_number).c_str());
+				else
 			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Tickcount: {}, Command: {}", pCmd->tick_count, pCmd->command_number).c_str());
 		}
 		Vec3 vOrigin = pLocal->m_vecOrigin();
-		H::Draw.StringOutlined(fFont, x, y += nTall * 2, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Origin: ({:.3f}, {:.3f}, {:.3f})", vOrigin.x, vOrigin.y, vOrigin.z).c_str());
+		if (!Vars::Menu::StringOutlined.Value)
+			H::Draw.String(fFont, x, y += nTall * 2, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Origin: ({:.3f}, {:.3f}, {:.3f})", vOrigin.x, vOrigin.y, vOrigin.z).c_str());
+		else
+			H::Draw.StringOutlined(fFont, x, y += nTall * 2, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Origin: ({:.3f}, {:.3f}, {:.3f})", vOrigin.x, vOrigin.y, vOrigin.z).c_str());
 		Vec3 vVelocity = pLocal->m_vecVelocity();
-		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Velocity: {:.3f} ({:.3f}, {:.3f}, {:.3f})", vVelocity.Length(), vVelocity.x, vVelocity.y, vVelocity.z).c_str());
-		H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Tickbase: {}", pLocal->m_nTickBase()).c_str());
+		if (!Vars::Menu::StringOutlined.Value)
+			H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Velocity: {:.3f} ({:.3f}, {:.3f}, {:.3f})", vVelocity.Length(), vVelocity.x, vVelocity.y, vVelocity.z).c_str());
+		else
+			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Velocity: {:.3f} ({:.3f}, {:.3f}, {:.3f})", vVelocity.Length(), vVelocity.x, vVelocity.y, vVelocity.z).c_str());
+		if (!Vars::Menu::StringOutlined.Value)
+			H::Draw.String(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, ALIGN_TOPLEFT, std::format("Flags: {:#010b}", pLocal->m_fFlags()).c_str());
+		else
+			H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Tickbase: {}", pLocal->m_nTickBase()).c_str());
 		//H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Choke: {}, {}", G::Choking, I::ClientState->chokedcommands).c_str());
 		//H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Ticks: {}, {}", F::Ticks.m_iShiftedTicks, F::Ticks.m_iShiftedGoal).c_str());
 		//H::Draw.StringOutlined(fFont, x, y += nTall, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, std::format("Round state: {}, {}, {}", SDK::GetRoundState(), SDK::GetWinningTeam(), I::EngineClient->IsPlayingDemo()).c_str());
@@ -397,7 +472,10 @@ void CVisuals::DrawDebugInfo(CTFPlayer* pLocal)
 		if (Vars::Debug::Info.Value)
 			y += nTall;
 		for (auto& [sString, tColor] : m_vDebugText)
-			H::Draw.StringOutlined(fFont, x, y += nTall, tColor, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, sString.c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x, y += nTall, tColor, ALIGN_TOPLEFT, sString.c_str());
+			else
+				H::Draw.StringOutlined(fFont, x, y += nTall, tColor, Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, sString.c_str());
 	}
 #endif
 }

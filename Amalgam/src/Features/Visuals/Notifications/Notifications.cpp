@@ -91,7 +91,10 @@ void CNotifications::Draw()
 		H::Draw.FillRoundRect(x + 1, y + 1, w - 2, h - 2, H::Draw.Scale(3, Scale_Round), tAccent.Alpha(255), 16);
 		H::Draw.EndClipping();
 		H::Draw.LineRoundRect(x, y, w, h, H::Draw.Scale(4, Scale_Round), tBackground.Lerp({ 127, 127, 127 }, 2.f / 9), 16);
-		H::Draw.StringOutlined(fFont, x + H::Draw.Scale(15, Scale_Round), y + H::Draw.Scale(13, Scale_Round), tActive.Alpha(255), Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, tNotification.m_sText.c_str());
+		if (!Vars::Menu::StringOutlined.Value)
+			H::Draw.String(fFont, x + H::Draw.Scale(15, Scale_Round), y + H::Draw.Scale(13, Scale_Round), tActive.Alpha(255), ALIGN_TOPLEFT, tNotification.m_sText.c_str());
+		else
+			H::Draw.StringOutlined(fFont, x + H::Draw.Scale(15, Scale_Round), y + H::Draw.Scale(13, Scale_Round), tActive.Alpha(255), Vars::Menu::Theme::Background.Value, ALIGN_TOPLEFT, tNotification.m_sText.c_str());
 
 		y += (h + H::Draw.Scale(8, Scale_Round)) * (flEaseY) * (!ShouldReverseY() ? 1 : -1);
 	}

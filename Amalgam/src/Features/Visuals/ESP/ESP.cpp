@@ -841,22 +841,37 @@ void CESP::DrawPlayers()
 			switch (iMode)
 			{
 			case ALIGN_TOP:
-				H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, t - tOffset, tColor, ALIGN_BOTTOM, sText.c_str());					
+				else
+					H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
 				tOffset += nTall;
 				break;
 			case ALIGN_BOTTOM:
-				H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, b + bOffset, tColor, ALIGN_TOP, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
 				bOffset += nTall;
 				break;
 			case ALIGN_LEFT:
-				H::Draw.StringOutlined(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, tOutline, ALIGN_TOPRIGHT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, ALIGN_TOPRIGHT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, tOutline, ALIGN_TOPRIGHT, sText.c_str());
 				break;
 			case ALIGN_TOPRIGHT:
-				H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, ALIGN_TOPLEFT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
 				rOffset += nTall;
 				break;
 			case ALIGN_BOTTOMRIGHT:
-				H::Draw.StringOutlined(fFont, r, y + h, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, r, y + h, tColor, ALIGN_TOPLEFT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, r, y + h, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
 				break;
 			}
 		}
@@ -944,22 +959,37 @@ void CESP::DrawBuildings()
 			switch (iMode)
 			{
 			case ALIGN_TOP:
-				H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, t - tOffset, tColor, ALIGN_BOTTOM, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
 				tOffset += nTall;
 				break;
 			case ALIGN_BOTTOM:
-				H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, b + bOffset, tColor, ALIGN_TOP, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
 				bOffset += nTall;
 				break;
 			case ALIGN_LEFT:
-				H::Draw.StringOutlined(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, tOutline, ALIGN_TOPRIGHT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, ALIGN_TOPRIGHT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, l - lOffset, y - H::Draw.Scale(2) + h - h * std::min(tCache.m_flHealth, 1.f), tColor, tOutline, ALIGN_TOPRIGHT, sText.c_str());
 				break;
 			case ALIGN_TOPRIGHT:
-				H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, ALIGN_TOPLEFT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
 				rOffset += nTall;
 				break;
 			case ALIGN_BOTTOMRIGHT:
-				H::Draw.StringOutlined(fFont, r, y + h, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, r, y + h, tColor, ALIGN_TOPLEFT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, r, y + h, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
 				break;
 			}
 		}
@@ -995,15 +1025,24 @@ void CESP::DrawWorld()
 			switch (iMode)
 			{
 			case ALIGN_TOP:
-				H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, t - tOffset, tColor, ALIGN_BOTTOM, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, m, t - tOffset, tColor, tOutline, ALIGN_BOTTOM, sText.c_str());
 				tOffset += nTall;
 				break;
 			case ALIGN_BOTTOM:
-				H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, m, b + bOffset, tColor, ALIGN_TOP, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, m, b + bOffset, tColor, tOutline, ALIGN_TOP, sText.c_str());
 				bOffset += nTall;
 				break;
 			case ALIGN_TOPRIGHT:
-				H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
+				if (!Vars::Menu::StringOutlined.Value)
+					H::Draw.String(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, ALIGN_TOPLEFT, sText.c_str());
+				else
+					H::Draw.StringOutlined(fFont, r, y - H::Draw.Scale(2) + rOffset, tColor, tOutline, ALIGN_TOPLEFT, sText.c_str());
 				rOffset += nTall;
 				break;
 			}

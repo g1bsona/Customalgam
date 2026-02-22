@@ -290,7 +290,7 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFreetypeAVX2|x64'">
-    <IncludePath>$(ProjectDir)include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;C:\Users\TRAC\Documents\GitHub\Customalgam\packages\boost.1.87.0;$(IncludePath)</IncludePath>
     <IntDir>$(SolutionDir)build\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)$(Platform)$(Configuration)</TargetName>
     <OutDir>$(SolutionDir)output\$(Platform)\$(Configuration)\</OutDir>

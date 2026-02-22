@@ -171,8 +171,8 @@ public:
 namespace Vars
 {
 	NAMESPACE_BEGIN(Menu)
-		CVar(CheatTitle, "Cheat title", std::string("Amalgam"), VISUAL | DROPDOWN_AUTOUPDATE);
-		CVar(CheatTag, "Cheat tag", std::string("[Amalgam]"), VISUAL);
+		CVar(CheatTitle, "Cheat title", std::string("Customalgam"), VISUAL | DROPDOWN_AUTOUPDATE);
+		CVar(CheatTag, "Cheat tag", std::string("[Customalgam]"), VISUAL);
 		CVar(PrimaryKey, "Primary key", VK_INSERT, NOBIND);
 		CVar(SecondaryKey, "Secondary key", VK_F3, NOBIND);
 
@@ -194,6 +194,7 @@ namespace Vars
 
 		CVar(Scale, "Scale", 1.f, NOBIND | SLIDER_MIN | SLIDER_PRECISION | SLIDER_NOAUTOUPDATE, 0.75f, 2.f, 0.25f);
 		CVar(CheapText, "Cheap text", false);
+		CVar(StringOutlined, "StringOutlined", true);
 
 		SUBNAMESPACE_BEGIN(Theme)
 			CVar(Accent, "Accent color", Color_t(175, 150, 255, 255), VISUAL);
@@ -201,11 +202,32 @@ namespace Vars
 			CVar(Active, "Active color", Color_t(255, 255, 255, 255), VISUAL);
 			CVar(Inactive, "Inactive color", Color_t(150, 150, 150, 255), VISUAL);
 		SUBNAMESPACE_END(Theme);
+
 	NAMESPACE_END(Menu);
+
+	NAMESPACE_BEGIN(Fonts);
+		SUBNAMESPACE_BEGIN(FONT_ESP)
+			CVar(szName, "ESP Font Name", std::string("Verdana"), VISUAL);
+			CVar(nTall, "ESP Font Size", 12, VISUAL, 7, 15);
+			CVar(nWeight, "ESP Font Weight", 0, VISUAL, 0, 900, 100);
+			CVar(nFlags, "ESP Font Flags", int(0x010), VISUAL);
+		SUBNAMESPACE_END(FONT_ESP);
+
+		SUBNAMESPACE_BEGIN(FONT_INDICATORS)
+			CVar(szName, "Indicator Font Name", std::string("Verdana"), VISUAL);
+			CVar(nTall, "Indicator Font Size", 13, VISUAL, 7, 15);
+			CVar(nWeight, "Indicator Font Weight", 0, VISUAL, 0, 900, 100);
+			CVar(nFlags, "Indicator Font Flags", int(0x010), VISUAL);
+		SUBNAMESPACE_END(FONT_INDICATORS);
+	NAMESPACE_END(Fonts)
 
 	NAMESPACE_BEGIN(Colors)
 		CVar(FOVCircle, "FOV circle color", Color_t(255, 255, 255, 100), VISUAL);
 		CVar(Local, "Local color", Color_t(255, 255, 255, 0), VISUAL);
+
+		CVar(ESP, "ESP", Color_t(255, 255, 255, 255), VISUAL);
+		CVar(Indicators, "Indicators", Color_t(255, 255, 255, 255), VISUAL);
+		CVar(Text_Outline, "Text Outline", Color_t(0, 0, 0, 250), VISUAL);
 
 		CVar(IndicatorGood, "Indicator good", Color_t(0, 255, 100, 255), NOSAVE | DEBUGVAR);
 		CVar(IndicatorMid, "Indicator mid", Color_t(255, 200, 0, 255), NOSAVE | DEBUGVAR);

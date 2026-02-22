@@ -401,7 +401,10 @@ void CPlayerConditions::Draw(CTFPlayer* pLocal)
 	int iOffset = 0;
 	for (const std::string& sCondition : vConditions)
 	{
-		H::Draw.StringOutlined(fFont, x, y + iOffset, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, align, sCondition.c_str());
+		if (!Vars::Menu::StringOutlined.Value)
+			H::Draw.String(fFont, x, y + iOffset, Vars::Menu::Theme::Active.Value, align, sCondition.c_str());
+		else
+			H::Draw.StringOutlined(fFont, x, y + iOffset, Vars::Menu::Theme::Active.Value, Vars::Menu::Theme::Background.Value, align, sCondition.c_str());
 		iOffset += nTall;
 	}
 }

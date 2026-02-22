@@ -2,6 +2,7 @@
 #include "../../../Utils/Macros/Macros.h"
 #include "../../Definitions/Interfaces/IMatSystemSurface.h"
 #include <unordered_map>
+#include "../../Vars.h"
 
 enum EFonts
 {

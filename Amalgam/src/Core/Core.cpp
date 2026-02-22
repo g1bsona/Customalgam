@@ -32,14 +32,14 @@ static inline bool CheckDXLevel()
 	if (mat_dxlevel->GetInt() < 90)
 	{
 		/*
-		const char* sMessage = "You are running with graphics options that Amalgam does not support. -dxlevel must be at least 90.";
+		const char* sMessage = "You are running with graphics options that Customalgam does not support. -dxlevel must be at least 90.";
 		U::Core.AppendFailText(sMessage);
-		SDK::Output("Amalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Customalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 		return false;
 		*/
 
-		const char* sMessage = "You are running with graphics options that Amalgam does not support. It is recommended for -dxlevel to be at least 90.";
-		SDK::Output("Amalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+		const char* sMessage = "You are running with graphics options that Customalgam does not support. It is recommended for -dxlevel to be at least 90.";
+		SDK::Output("Customalgam", sMessage, DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 	}
 
 	return true;
@@ -69,7 +69,7 @@ void CCore::LogFailText()
 
 		m_ssFailStream << "\n";
 		m_ssFailStream << "Ctrl + C to copy. \n";
-		m_ssFailStream << "Logged to Amalgam\\fail_log.txt. ";
+		m_ssFailStream << "Logged to Customalgam\\fail_log.txt. ";
 	}
 	catch (...) {}
 
@@ -115,8 +115,9 @@ void CCore::Load()
 	H::ConVars.Unlock();
 
 	F::Configs.LoadConfig(F::Configs.m_sCurrentConfig, false);
+	H::Fonts.Reload();
 
-	SDK::Output("Amalgam", "Loaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
+	SDK::Output("Customalgam", "Loaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_TOAST | OUTPUT_MENU | OUTPUT_DEBUG);
 }
 
 void CCore::Loop()
@@ -169,5 +170,5 @@ void CCore::Unload()
 		return;
 	}
 
-	SDK::Output("Amalgam", "Unloaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_DEBUG);
+	SDK::Output("Customalgam", "Unloaded", DEFAULT_COLOR, OUTPUT_CONSOLE | OUTPUT_DEBUG);
 }

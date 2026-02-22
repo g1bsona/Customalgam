@@ -117,7 +117,10 @@ void CSpectatorList::Draw(CTFPlayer* pLocal)
 	auto pResource = H::Entities.GetResource();
 	int iIndex = pTarget->entindex();
 	const char* sName = pTarget != pLocal ? F::PlayerUtils.GetPlayerName(iIndex, pResource->GetName(iIndex)) : "You";
-	H::Draw.StringOutlined(fFont, x, y, Vars::Menu::Theme::Accent.Value, Vars::Menu::Theme::Background.Value, align, std::format("Spectating {}:", sName).c_str());
+	if (!Vars::Menu::StringOutlined.Value)
+		H::Draw.String(fFont, x, y, Vars::Menu::Theme::Accent.Value, align, std::format("Spectating {}:", sName).c_str());
+	else
+		H::Draw.StringOutlined(fFont, x, y, Vars::Menu::Theme::Accent.Value, Vars::Menu::Theme::Background.Value, align, std::format("Spectating {}:", sName).c_str());
 	for (auto& tSpectator : m_vSpectators)
 	{
 		y += nTall;
@@ -133,8 +136,14 @@ void CSpectatorList::Draw(CTFPlayer* pLocal)
 			tColor = tColor.Lerp({ 255, 150, 0, 255 }, 0.5f);
 
 		if (tSpectator.m_flRespawnIn != -1.f)
-			H::Draw.StringOutlined(fFont, x + iconOffset, y, tColor, Vars::Menu::Theme::Background.Value, align, std::format("{} ({} - respawn {}s)", tSpectator.m_sName, tSpectator.m_sMode, tSpectator.m_flRespawnIn).c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x + iconOffset, y, tColor, align, std::format("{} ({} - respawn {}s)", tSpectator.m_sName, tSpectator.m_sMode, tSpectator.m_flRespawnIn).c_str());
+			else
+				H::Draw.StringOutlined(fFont, x + iconOffset, y, tColor, Vars::Menu::Theme::Background.Value, align, std::format("{} ({} - respawn {}s)", tSpectator.m_sName, tSpectator.m_sMode, tSpectator.m_flRespawnIn).c_str());
 		else
-			H::Draw.StringOutlined(fFont, x + iconOffset, y, tColor, Vars::Menu::Theme::Background.Value, align, std::format("{} ({})", tSpectator.m_sName, tSpectator.m_sMode).c_str());
+			if (!Vars::Menu::StringOutlined.Value)
+				H::Draw.String(fFont, x + iconOffset, y, tColor, align, std::format("{} ({})", tSpectator.m_sName, tSpectator.m_sMode).c_str());
+			else
+				H::Draw.StringOutlined(fFont, x + iconOffset, y, tColor, Vars::Menu::Theme::Background.Value, align, std::format("{} ({})", tSpectator.m_sName, tSpectator.m_sMode).c_str());
 	}
 }
