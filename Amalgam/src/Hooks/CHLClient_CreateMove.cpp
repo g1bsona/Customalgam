@@ -231,10 +231,7 @@ static inline void AntiCheatCompatibility(CUserCmd* pCmd, bool* pSendPacket)
 MAKE_HOOK(CHLClient_CreateMove, U::Memory.GetVirtual(I::Client, 21), void,
 	void* rcx, int sequence_number, float input_sample_frametime, bool active)
 {
-#ifdef DEBUG_HOOKS
-	if (!Vars::Hooks::CHLClient_CreateMove[DEFAULT_BIND])
-		return CALL_ORIGINAL(rcx, sequence_number, input_sample_frametime, active);
-#endif
+	DEBUG_RETURN(CHLClient_CreateMove, rcx, sequence_number, input_sample_frametime, active);
 
 	CALL_ORIGINAL(rcx, sequence_number, input_sample_frametime, active);
 
@@ -257,7 +254,7 @@ MAKE_HOOK(CHLClient_CreateMove, U::Memory.GetVirtual(I::Client, 21), void,
 	F::Ticks.End(pLocal, pCmd);
 		F::CritHack.Run(pLocal, pWeapon, pCmd);
 		F::NoSpread.Run(pLocal, pWeapon, pCmd);
-		F::Resolver.CreateMove(pLocal);
+		F::Resolver.CreateMove();
 		F::Misc.RunPost(pLocal, pCmd);
 		F::PacketManip.Run(pLocal, pWeapon, pCmd, pSendPacket);
 		F::Visuals.CreateMove(pLocal, pWeapon);
