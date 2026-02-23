@@ -2,8 +2,8 @@
 
 void CFonts::Reload(float flDPI)
 {
-	m_mFonts[FONT_ESP] = { Vars::Fonts::FONT_ESP::szName.Value.c_str(), int(Vars::Fonts::FONT_ESP::nTall.Value * flDPI), Vars::Fonts::FONT_ESP::nFlags.Value, Vars::Fonts::FONT_ESP::nWeight.Value };
-	m_mFonts[FONT_INDICATORS] = { Vars::Fonts::FONT_INDICATORS::szName.Value.c_str(), int(Vars::Fonts::FONT_INDICATORS::nTall.Value * flDPI), Vars::Fonts::FONT_INDICATORS::nFlags.Value, Vars::Fonts::FONT_INDICATORS::nWeight.Value };
+	m_mFonts[FONT_ESP] = { Vars::Fonts::ESPFont::szName.Value.c_str(), int(Vars::Fonts::ESPFont::nTall.Value * flDPI), Vars::Fonts::ESPFont::nFlags.Value, Vars::Fonts::ESPFont::nWeight.Value };
+	m_mFonts[FONT_INDICATORS] = { Vars::Fonts::IndicatorFont::szName.Value.c_str(), int(Vars::Fonts::IndicatorFont::nTall.Value * flDPI), Vars::Fonts::IndicatorFont::nFlags.Value, Vars::Fonts::IndicatorFont::nWeight.Value };
 
 	for (auto& [_, fFont] : m_mFonts)
 	{

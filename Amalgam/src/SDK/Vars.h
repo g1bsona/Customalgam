@@ -191,41 +191,36 @@ NAMESPACE_BEGIN(Vars)
 		CVar(SeedPredictionDisplay, "Seed prediction display", DragBox_t(), VISUAL | NOBIND);
 
 		CVar(Scale, "Scale", 1.f, NOBIND | SLIDER_MIN | SLIDER_PRECISION | SLIDER_NOAUTOUPDATE, 0.75f, 2.f, 0.25f);
-		CVar(CheapText, "Cheap text", false);
 		CVar(StringOutlined, "StringOutlined", true);
+		CVar(CheapText, "Cheap text", false);
 
 		NAMESPACE_BEGIN(Theme)
 			CVar(Accent, "Accent color", Color_t(175, 150, 255, 255), VISUAL);
 			CVar(Background, "Background color", Color_t(0, 0, 0, 250), VISUAL);
 			CVar(Active, "Active color", Color_t(255, 255, 255, 255), VISUAL);
 			CVar(Inactive, "Inactive color", Color_t(150, 150, 150, 255), VISUAL);
-		SUBNAMESPACE_END(Theme);
-
-	NAMESPACE_END(Menu);
+		NAMESPACE_END(Theme)
+	NAMESPACE_END(Menu)
 
 	NAMESPACE_BEGIN(Fonts);
-		SUBNAMESPACE_BEGIN(FONT_ESP)
+		NAMESPACE_BEGIN(ESPFont)
 			CVar(szName, "ESP Font Name", std::string("Verdana"), VISUAL);
 			CVar(nTall, "ESP Font Size", 12, VISUAL, 7, 15);
 			CVar(nWeight, "ESP Font Weight", 0, VISUAL, 0, 900, 100);
 			CVar(nFlags, "ESP Font Flags", int(0x010), VISUAL);
-		SUBNAMESPACE_END(FONT_ESP);
+		NAMESPACE_END(ESPFont);
 
-		SUBNAMESPACE_BEGIN(FONT_INDICATORS)
+		NAMESPACE_BEGIN(IndicatorFont)
 			CVar(szName, "Indicator Font Name", std::string("Verdana"), VISUAL);
 			CVar(nTall, "Indicator Font Size", 13, VISUAL, 7, 15);
 			CVar(nWeight, "Indicator Font Weight", 0, VISUAL, 0, 900, 100);
 			CVar(nFlags, "Indicator Font Flags", int(0x010), VISUAL);
-		SUBNAMESPACE_END(FONT_INDICATORS);
+		NAMESPACE_END(IndicatorFont);
 	NAMESPACE_END(Fonts)
 
 	NAMESPACE_BEGIN(Colors)
 		CVar(FOVCircle, "FOV circle color", Color_t(255, 255, 255, 100), VISUAL);
 		CVar(Local, "Local color", Color_t(255, 255, 255, 0), VISUAL);
-
-		CVar(ESP, "ESP", Color_t(255, 255, 255, 255), VISUAL);
-		CVar(Indicators, "Indicators", Color_t(255, 255, 255, 255), VISUAL);
-		CVar(Text_Outline, "Text Outline", Color_t(0, 0, 0, 250), VISUAL);
 
 		CVar(IndicatorGood, "Indicator good", Color_t(0, 255, 100, 255), NOSAVE | DEBUGVAR);
 		CVar(IndicatorMid, "Indicator mid", Color_t(255, 200, 0, 255), NOSAVE | DEBUGVAR);

@@ -392,7 +392,7 @@ static inline void LoadMain(BaseVar*& pBase, boost::property_tree::ptree& tTree)
 		}
 	}
 	else if (!(pVar->m_iFlags & NOSAVE))
-		SDK::Output("Amalgam", std::format("{} not found", pVar->Name).c_str(), ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
+		SDK::Output("Customalgam", std::format("{} not found", pVar->Name()).c_str(), ALTERNATE_COLOR, OUTPUT_CONSOLE | OUTPUT_MENU | OUTPUT_DEBUG);
 }
 #define Load(t, j) if (IsType(t)) LoadMain<t>(pBase, j);
 

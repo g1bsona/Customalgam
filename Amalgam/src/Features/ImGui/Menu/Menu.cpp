@@ -1003,15 +1003,15 @@ void CMenu::MenuVisuals(int iTab)
 
 			if (Section("Fonts"))
 			{
-				FSDropdown(Vars::Fonts::FONT_ESP::szName, {}, FDropdownEnum::Left);
-				FSlider(Vars::Fonts::FONT_ESP::nTall);
-				FSlider(Vars::Fonts::FONT_ESP::nWeight);
-				FDropdown(Vars::Fonts::FONT_ESP::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
+				FSDropdown(Vars::Fonts::ESPFont::szName, {}, FDropdownEnum::Left);
+				FSlider(Vars::Fonts::ESPFont::nTall);
+				FSlider(Vars::Fonts::ESPFont::nWeight);
+				FDropdown(Vars::Fonts::ESPFont::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
 
-				FSDropdown(Vars::Fonts::FONT_INDICATORS::szName, {}, FDropdownEnum::Left);
-				FSlider(Vars::Fonts::FONT_INDICATORS::nTall);
-				FSlider(Vars::Fonts::FONT_INDICATORS::nWeight);
-				FDropdown(Vars::Fonts::FONT_INDICATORS::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
+				FSDropdown(Vars::Fonts::IndicatorFont::szName, {}, FDropdownEnum::Left);
+				FSlider(Vars::Fonts::IndicatorFont::nTall);
+				FSlider(Vars::Fonts::IndicatorFont::nWeight);
+				FDropdown(Vars::Fonts::IndicatorFont::nFlags, fontFlagNames, fontFlagValues, FDropdownEnum::Multi);
 
 				if (FButton("Apply fonts"))
 					H::Fonts.Reload();
